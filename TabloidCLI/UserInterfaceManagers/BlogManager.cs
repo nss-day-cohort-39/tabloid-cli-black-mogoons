@@ -67,6 +67,7 @@ namespace TabloidCLI.UserInterfaceManagers
             foreach (Blog blog in blogs)
             {
                 Console.WriteLine(blog);
+                Console.WriteLine();
             }
         }
 
