@@ -9,6 +9,12 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.WriteLine("");
+
+            Console.WriteLine("This is a pleasent greeting that Andy would enjoy and is shown because you started the application!");
+
+            Console.WriteLine("");
+
             Console.WriteLine("Main Menu");
 
             Console.WriteLine(" 1) Journal Management");
@@ -23,10 +29,10 @@ namespace TabloidCLI.UserInterfaceManagers
             string choice = Console.ReadLine();
             switch (choice)
             {
-                case "1": throw new NotImplementedException();
-                case "2": throw new NotImplementedException();
+                //case "1": return new JournalManager(this, CONNECTION_STRING);
+                //case "2": return new BlogManager(this, CONNECTION_STRING);
                 case "3": return new AuthorManager(this, CONNECTION_STRING);
-                case "4": throw new NotImplementedException();
+                //case "4": return new PostManager(this, CONNECTION_STRING);
                 case "5": return new TagManager(this, CONNECTION_STRING);
                 case "6": return new SearchManager(this, CONNECTION_STRING);
                 case "0":
