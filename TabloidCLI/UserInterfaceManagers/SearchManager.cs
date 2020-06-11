@@ -30,7 +30,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "1":
                     return this;
                 case "2":
-                    SearchAuthors();
+                    // SearchAuthors();
                     return this;
                 case "3":
                     return this;
@@ -44,21 +44,21 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private void SearchAuthors()
-        {
-            Console.Write("Tag> ");
-            string tagName = Console.ReadLine();
+        //private void SearchAuthors()
+        //{
+        //    Console.Write("Tag> ");
+        //    string tagName = Console.ReadLine();
 
-            SearchResults<Author> results = _tagRepository.SearchAuthors(tagName);
+        //    SearchResults<Author> results = _tagRepository.SearchAuthors(tagName);
 
-            if (results.NoResultsFound)
-            {
-                Console.WriteLine($"No results for {tagName}");
-            }
-            else
-            {
-                results.Display();
-            }
-        }
+        //    if (results.NoResultsFound)
+        //    {
+        //        Console.WriteLine($"No results for {tagName}");
+        //    }
+        //    else
+        //    {
+        //        results.Display();
+        //    }
+        //}
     }
 }
