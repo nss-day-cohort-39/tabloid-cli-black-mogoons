@@ -213,7 +213,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 postToEdit.Url = url;
             }
-            Console.Write("New date time in this format(blank to leave unchanged): ");
+            Console.WriteLine("New date time in this format(blank to leave unchanged): ");
             Console.Write("Enter a month: ");
             int month = int.Parse(Console.ReadLine());
             Console.Write("Enter a day: ");
