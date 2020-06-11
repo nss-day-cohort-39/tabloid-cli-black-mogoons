@@ -35,16 +35,16 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "1":
                     List();
                     return this;
-                case "2":
-                    Post post = Choose();
-                    if (post == null)
-                    {
-                        return this;
-                    }
-                    else
-                    {
-                        return new PostDetailManager(this, _connectionString, post.Id);
-                    }
+                //case "2":
+                //    Post post = Choose();
+                //    if (post == null)
+                //    {
+                //        return this;
+                //    }
+                //    else
+                //    {
+                //        return new PostDetailManager(this, _connectionString, post.Id);
+                //    }
                 case "3":
                     Add();
                     return this;
@@ -113,14 +113,14 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Url: ");
             post.Url = Console.ReadLine();
 
-            Console.Write("Publish Date: ");
-            post.PublishDateTime = DateTime.Now;
 
             Console.Write("Choose Author: ");
-            ChooseAuth();
+            Author author = ChooseAuth();
+            post.Author = author;
 
             Console.Write("Choose Blog: ");
-            ChooseBlog();
+            Blog blog = ChooseBlog();
+            post.Blog = blog;
 
             _postRepository.Insert(post);
         }
@@ -211,13 +211,27 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 postToEdit.Url = url;
             }
-            //Console.Write("New date time (blank to leave unchanged: ");
-            //postToEdit.PublishDateTime = DateTime.TryParse(Console.ReadLine());
+            Console.Write("New date time in this format(blank to leave unchanged): ");
+            Console.Write("Enter a month: ");
+            int month = int.Parse(Console.ReadLine());
+            Console.Write("Enter a day: ");
+            int day = int.Parse(Console.ReadLine());
+            Console.Write("Enter a year: ");
+            int year = int.Parse(Console.ReadLine());
+            DateTime publishDateTime = new DateTime(year, month, day, 00,00,00,000);
 
-            //if (!string.IsNullOrWhiteSpace(publishDateTime))
-            //{
-            //    postToEdit.PublishDateTime = publishDateTime;
-            //}
+            if (publishDateTime != null)
+            {
+                postToEdit.PublishDateTime = publishDateTime;
+            }
+
+            Console.Write("Choose new Author: ");
+            Author author = ChooseAuth();
+            postToEdit.Author = author;
+
+            Console.Write("Choose new Blog: ");
+            Blog blog = ChooseBlog();
+            postToEdit.Blog = blog;
 
             _postRepository.Update(postToEdit);
         }
