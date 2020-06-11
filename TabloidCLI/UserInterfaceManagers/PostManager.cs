@@ -113,6 +113,8 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Url: ");
             post.Url = Console.ReadLine();
 
+            DateTime currentTime = DateTime.Now;
+            post.PublishDateTime = currentTime;
 
             Console.Write("Choose Author: ");
             Author author = ChooseAuth();
