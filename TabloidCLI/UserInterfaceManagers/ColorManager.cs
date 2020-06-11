@@ -91,7 +91,7 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             string[] themes = new string[]
             {
-                "Easter Egg", "Donkey Kong", "Ocean View", "Bumble Bee", "TheHamptons", "Branty"
+                "Easter Egg", "Donkey Kong", "Ocean View", "Bumble Bee", "The Hamptons", "Branty"
             };
             foreach(string theme in themes)
             {
