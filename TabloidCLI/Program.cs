@@ -1,4 +1,10 @@
 ﻿using TabloidCLI.UserInterfaceManagers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TabloidCLI
 {
@@ -14,6 +20,10 @@ namespace TabloidCLI
                 // When it returns null, we should exit the program;
                 ui = ui.Execute();
             }
+
+            
+
         }
+        
     }
 }
