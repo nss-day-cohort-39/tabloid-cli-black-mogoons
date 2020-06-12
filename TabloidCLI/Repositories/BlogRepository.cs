@@ -58,7 +58,7 @@ namespace TabloidCLI
                                                t.Name
                                           FROM Blog b
                                                LEFT JOIN BlogTag bt ON b.Id = bt.BlogId
-                                               LEFT JOIN Tag t on b.Id = bt.TagId
+                                               LEFT JOIN Tag t on t.Id = bt.TagId
                                          WHERE b.id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -132,17 +132,34 @@ namespace TabloidCLI
                 }
             }
         }
-
+        //want to delete the blog, so we pass in id of blog
         public void Delete(int id)
         {
+            //open a sql connection, do not need to close 
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
+                    //trying to delete every reference to FK, only table with FK to blog
+                    cmd.CommandText = @"DELETE FROM Post WHERE BlogId = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    //trying to delete every reference to FK, only table with FK to blog
+                    cmd.CommandText = @"DELETE FROM BlogTag WHERE BlogId = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+
+                //this is where blog is stored, but not able to delete due to FK restraint
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
                     cmd.CommandText = @"DELETE FROM Blog WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
-
                     cmd.ExecuteNonQuery();
                 }
             }
