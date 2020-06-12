@@ -17,11 +17,14 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT id,
-                                               FirstName,
-                                               LastName,
-                                               Bio
-                                          FROM Author";
+                    cmd.CommandText = @"SELECT 
+	                                        id, 
+	                                        FirstName, 
+	                                        LastName,
+	                                        Bio,
+	                                        isDeleted
+                                        FROM Author
+                                        WHERE isDeleted != 1 OR isDeleted IS NULL";
 
                     List<Author> authors = new List<Author>();
 
@@ -146,8 +149,12 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM Author WHERE id = @id";
+                    cmd.CommandText = 
+                        @"UPDATE Author 
+                            SET isDeleted = @isDeleted
+                            WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@isDeleted", 1);
 
                     cmd.ExecuteNonQuery();
                 }
