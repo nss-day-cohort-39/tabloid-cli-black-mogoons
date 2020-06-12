@@ -149,43 +149,19 @@ namespace TabloidCLI
                                         WHERE p.BlogId = @Id";
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
-                }
 
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    //trying to delete every reference to FK, only table with FK to blog
                     cmd.CommandText = @"DELETE pt 
                                         FROM PostTag pt
                                         JOIN Post p ON pt.PostId = p.Id
                                         WHERE p.BlogId = @Id";
-                    cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
-                }
-
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    //trying to delete every reference to FK, only table with FK to blog
                     cmd.CommandText = @"DELETE FROM Post WHERE BlogId = @id";
-                    cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
-                }
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    //trying to delete every reference to FK, only table with FK to blog
                     cmd.CommandText = @"DELETE FROM BlogTag WHERE BlogId = @id";
-                    cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
-                }
-
-                //this is where blog is stored, but not able to delete due to FK restraint
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
                     cmd.CommandText = @"DELETE FROM Blog WHERE id = @id";
-                    cmd.Parameters.AddWithValue("@id", id);
-
                     cmd.ExecuteNonQuery();
                 }
-
             }
         }
         
