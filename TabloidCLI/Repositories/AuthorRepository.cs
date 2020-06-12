@@ -24,7 +24,7 @@ namespace TabloidCLI
 	                                        Bio,
 	                                        isDeleted
                                         FROM Author
-                                        WHERE isDeleted != 1 OR isDeleted IS NULL";
+                                        WHERE isDeleted != 1";
 
                     List<Author> authors = new List<Author>();
 
