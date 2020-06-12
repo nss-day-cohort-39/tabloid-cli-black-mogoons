@@ -36,9 +36,9 @@ namespace TabloidCLI.UserInterfaceManagers
                     return this;
                 case "2":
                     Blog blog = Choose();
-                   if (blog == null)
+                    if (blog == null)
                     {
-                       return this;
+                        return this;
                     }
                     else
                     {
