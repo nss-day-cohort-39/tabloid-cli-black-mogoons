@@ -64,7 +64,12 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine($"Published Date: {post.PublishDateTime}");
             Console.WriteLine($"Author: {post.Author}");
             Console.WriteLine($"Blog: {post.Blog}");
-            Console.WriteLine($"Tags: {post.Tags}");
+            Console.WriteLine($"Tags: ");
+            foreach (Tag tag in post.Tags)
+            {
+                Console.WriteLine(" " + tag.Name);
+            }
+            Console.WriteLine();
         }
 
         private void AddTag()
