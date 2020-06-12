@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TabloidCLI.Models
 {
@@ -11,7 +12,7 @@ namespace TabloidCLI.Models
 
         public override string ToString()
         {
-            return $"Title: {Title}\nUrl: ({Url})";
+            return $"Title: {Title}\nUrl: ({Url})\n-----------------------";
         }
     }
 }
