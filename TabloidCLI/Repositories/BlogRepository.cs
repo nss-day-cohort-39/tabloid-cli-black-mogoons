@@ -58,7 +58,7 @@ namespace TabloidCLI
                                                t.Name
                                           FROM Blog b
                                                LEFT JOIN BlogTag bt ON b.Id = bt.BlogId
-                                               LEFT JOIN Tag t on t.Id = bt.TagId
+                                               LEFT JOIN Tag t ON t.Id = bt.TagId
                                          WHERE b.id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -132,39 +132,23 @@ namespace TabloidCLI
                 }
             }
         }
-        //want to delete the blog, so we pass in id of blog
+
         public void Delete(int id)
         {
-            //open a sql connection, do not need to close 
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
-
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    //trying to delete every reference to FK, only table with FK to blog
-                    cmd.CommandText = @"DELETE n
-                                        FROM Note n
-                                        JOIN Post p ON p.Id = n.PostId
-                                        WHERE p.BlogId = @Id";
+                    cmd.CommandText = @"DELETE FROM 
+                                    Blog WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
-                    cmd.ExecuteNonQuery();
 
-                    cmd.CommandText = @"DELETE pt 
-                                        FROM PostTag pt
-                                        JOIN Post p ON pt.PostId = p.Id
-                                        WHERE p.BlogId = @Id";
-                    cmd.ExecuteNonQuery();
-                    cmd.CommandText = @"DELETE FROM Post WHERE BlogId = @id";
-                    cmd.ExecuteNonQuery();
-                    cmd.CommandText = @"DELETE FROM BlogTag WHERE BlogId = @id";
-                    cmd.ExecuteNonQuery();
-                    cmd.CommandText = @"DELETE FROM Blog WHERE id = @id";
                     cmd.ExecuteNonQuery();
                 }
             }
         }
-        
+
         public void InsertTag(Blog blog, Tag tag)
         {
             using (SqlConnection conn = Connection)
