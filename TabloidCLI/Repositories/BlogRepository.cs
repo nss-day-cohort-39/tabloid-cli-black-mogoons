@@ -139,6 +139,29 @@ namespace TabloidCLI
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    //trying to delete every reference to FK, only table with FK to blog
+                    cmd.CommandText = @"DELETE n
+                                        FROM Note n
+                                        JOIN Post p ON p.Id = n.PostId
+                                        WHERE p.BlogId = @Id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    //trying to delete every reference to FK, only table with FK to blog
+                    cmd.CommandText = @"DELETE pt 
+                                        FROM PostTag pt
+                                        JOIN Post p ON pt.PostId = p.Id
+                                        WHERE p.BlogId = @Id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     //trying to delete every reference to FK, only table with FK to blog
@@ -146,7 +169,6 @@ namespace TabloidCLI
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
                 }
-
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     //trying to delete every reference to FK, only table with FK to blog
@@ -160,11 +182,13 @@ namespace TabloidCLI
                 {
                     cmd.CommandText = @"DELETE FROM Blog WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
+
                     cmd.ExecuteNonQuery();
                 }
+
             }
         }
-
+        
         public void InsertTag(Blog blog, Tag tag)
         {
             using (SqlConnection conn = Connection)
