@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using TabloidCLI.Models;
+using TabloidCLI.UserInterfaceManagers;
 
 namespace TabloidCLI.Repositories
 {
@@ -277,6 +278,67 @@ namespace TabloidCLI.Repositories
                     cmd.Parameters.AddWithValue("@tagId", tagId);
 
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public SearchResults<Post> SearchPosts(string tagName)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT p.Id AS PostId,
+                                               p.Title AS PostTitle,
+                                               p.Url AS PostUrl,
+                                               p.PublishDateTime AS PublishDateTime,
+                                               a.Id AS AuthorId,
+                                               a.FirstName AS FirstName,
+                                               a.LastName AS LastName,
+                                               a.Bio AS Bio,
+                                               b.Id AS BlogId,
+                                               b.Title AS BlogTitle,
+                                               b.Url AS BlogUrl,
+                                               t.Id AS TagId,
+                                               t.Name AS TagName
+                                          FROM Post p
+                                               LEFT JOIN PostTag pt ON p.Id = pt.PostId
+                                               LEFT JOIN Tag t on t.Id = pt.TagId
+                                               LEFT JOIN Author a on a.Id = p.AuthorId
+                                               LEFT JOIN Blog b on b.Id = p.BlogId
+                                         WHERE t.Name LIKE @name";
+                    cmd.Parameters.AddWithValue("@name", $"%{tagName}%");
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    SearchResults<Post> results = new SearchResults<Post>();
+                    while (reader.Read())
+                    {
+                        Post post = new Post()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("PostId")),
+                            Title = reader.GetString(reader.GetOrdinal("PostTitle")),
+                            Url = reader.GetString(reader.GetOrdinal("PostUrl")),
+                            PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
+                            Author = new Author()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("AuthorId")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                Bio = reader.GetString(reader.GetOrdinal("Bio")),
+                            },
+                            Blog = new Blog()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("BlogId")),
+                                Title = reader.GetString(reader.GetOrdinal("BlogTitle")),
+                                Url = reader.GetString(reader.GetOrdinal("BlogUrl")),
+                            }
+                        };
+                        results.Add(post);
+                    }
+
+                    reader.Close();
+
+                    return results;
                 }
             }
         }
