@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using TabloidCLI.Models;
+
 
 namespace TabloidCLI.UserInterfaceManagers
 {
@@ -28,7 +30,17 @@ namespace TabloidCLI.UserInterfaceManagers
 
             foreach (T result in _results)
             {
-                Console.WriteLine(" " + result);
+                Console.WriteLine(result);
+            }
+
+            Console.WriteLine();
+        }
+
+        public void DisplayAll()
+        {
+            foreach (T result in _results)
+            {
+                Console.WriteLine(result);
             }
 
             Console.WriteLine();

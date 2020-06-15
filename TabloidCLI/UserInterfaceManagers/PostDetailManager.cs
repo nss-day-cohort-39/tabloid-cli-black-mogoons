@@ -19,7 +19,7 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             _parentUI = parentUI;
             _postRepository = new PostRepository(connectionString);
-            _postRepository = new PostRepository(connectionString);
+            _authorRepository = new AuthorRepository(connectionString);
             _tagRepository = new TagRepository(connectionString);
             _postId = postId;
             _connectionString = connectionString;
