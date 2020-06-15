@@ -11,6 +11,8 @@ namespace TabloidCLI.UserInterfaceManagers
         private AuthorRepository _authorRepository;
         private PostRepository _postRepository;
         private TagRepository _tagRepository;
+        private NoteRepository _noteRepository;
+        private string _connectionString;
         private int _postId;
 
         public PostDetailManager(IUserInterfaceManager parentUI, string connectionString, int postId)
@@ -20,6 +22,7 @@ namespace TabloidCLI.UserInterfaceManagers
             _postRepository = new PostRepository(connectionString);
             _tagRepository = new TagRepository(connectionString);
             _postId = postId;
+            _connectionString = connectionString;
         }
 
         public IUserInterfaceManager Execute()
@@ -126,9 +129,12 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private void ManageNote()
+        private NoteManager ManageNote()
         {
-            throw new NotImplementedException();
+            NoteManager noteManager = new NoteManager(this, _connectionString);
+            noteManager.Execute();
+            return noteManager;
         }
+        
     }
 }
