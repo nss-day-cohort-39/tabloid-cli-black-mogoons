@@ -15,7 +15,7 @@ namespace TabloidCLI.Models
         public Blog Blog { get; set; }
         public override string ToString()
         {
-            return $"Title: {Title}\nBlog: {Blog.Title}\n-----------------------";
+            return $"Title: {Title}\nUrl: ({Url})\n-----------------------";
         }
     }
 }

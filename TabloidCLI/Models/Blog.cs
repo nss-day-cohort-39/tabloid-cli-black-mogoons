@@ -14,5 +14,6 @@ namespace TabloidCLI.Models
         {
             return $"Title: {Title}\nUrl: ({Url})\n-----------------------";
         }
+
     }
 }
