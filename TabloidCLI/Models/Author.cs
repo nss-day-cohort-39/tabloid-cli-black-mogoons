@@ -19,9 +19,9 @@ namespace TabloidCLI.Models
             }
         }
 
-        public override string ToString()
-        {
-            return FullName;
-        }
+        //public override string ToString()
+        //{
+        //    return FullName;
+        //}
     }
 }

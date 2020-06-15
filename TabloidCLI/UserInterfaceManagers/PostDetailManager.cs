@@ -131,7 +131,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private NoteManager ManageNote()
         {
-            NoteManager noteManager = new NoteManager(this, _connectionString);
+            Post post = _postRepository.Get(_postId);
+            NoteManager noteManager = new NoteManager(this, _connectionString, post);
             noteManager.Execute();
             return noteManager;
         }

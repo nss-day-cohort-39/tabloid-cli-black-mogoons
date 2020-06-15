@@ -17,11 +17,11 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT n.Id AS 'Note Id',
-                                        n.Title AS 'Note Title',
+                    cmd.CommandText = @"SELECT n.Id AS 'NoteId',
+                                        n.Title AS 'NoteTitle',
                                         n.Content,
                                         n.CreateDateTime,
-                                        p.Title AS 'Post Title'
+                                        p.Title AS 'PostTitle'
                                         FROM Note n
                                         JOIN Post p on n.PostId = p.Id";
                     List<Note> notes = new List<Note>();

@@ -75,6 +75,8 @@ namespace TabloidCLI.UserInterfaceManagers
             DateTime currentTime = DateTime.Now;
             note.CreateDateTime = currentTime;
 
+            note.Post = _post;
+
             _noteRepository.Insert(note);
         }
 
