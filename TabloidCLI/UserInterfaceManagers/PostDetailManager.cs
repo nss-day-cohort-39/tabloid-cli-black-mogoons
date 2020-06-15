@@ -49,8 +49,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     RemoveTag();
                     return this;
                 case "4":
-                    ManageNote();
-                    return this;
+                    return new NoteManager(this, _connectionString, post);
                 case "0":
                     return _parentUI;
                 default:
@@ -129,13 +128,13 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private NoteManager ManageNote()
-        {
-            Post post = _postRepository.Get(_postId);
-            NoteManager noteManager = new NoteManager(this, _connectionString, post);
-            noteManager.Execute();
-            return noteManager;
-        }
+        //private NoteManager ManageNote()
+        //{
+        //    Post post = _postRepository.Get(_postId);
+        //    NoteManager noteManager = new NoteManager(this, _connectionString, post);
+        //    noteManager.Execute();
+        //    return noteManager;
+        //}
         
     }
 }

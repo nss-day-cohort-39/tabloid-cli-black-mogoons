@@ -82,16 +82,42 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Remove()
         {
-            Note noteToDelete = Choose("Which note would you like to remove?");
+            Note noteToDelete = Choose();
             if (noteToDelete != null)
             {
                 _noteRepository.Delete(noteToDelete.Id);
             }
         }
 
-        private Note Choose(string v)
+        private Note Choose(string prompt = null)
         {
-            throw new NotImplementedException();
+            if (prompt == null)
+            {
+                prompt = "Please choose an Author:";
+            }
+
+            Console.WriteLine(prompt);
+
+            List<Note> notes = _noteRepository.GetAll();
+
+            for (int i = 0; i < notes.Count; i++)
+            {
+                Note note = notes[i];
+                Console.WriteLine($" {i + 1}) {note.Title}");
+            }
+            Console.Write("> ");
+
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                return notes[choice - 1];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection");
+                return null;
+            }
         }
     }
 }
