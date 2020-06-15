@@ -9,13 +9,17 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private readonly IUserInterfaceManager _parentUI;
         private NoteRepository _noteRepository;
+        private PostRepository _postRepository;
         private string _connectionString;
+        private Post _post;
 
-        public NoteManager(IUserInterfaceManager parentUI, string connectionString)
+        public NoteManager(IUserInterfaceManager parentUI, string connectionString, Post post)
         {
             _parentUI = parentUI;
-            _noteRepository = new NoteRepository();
+            _noteRepository = new NoteRepository(connectionString);
+            _postRepository = new PostRepository(connectionString);
             _connectionString = connectionString;
+            _post = post;
         }
 
         public IUserInterfaceManager Execute()
@@ -52,7 +56,7 @@ namespace TabloidCLI.UserInterfaceManagers
             List<Note> notes = _noteRepository.GetAll();
             foreach (Note note in notes)
             {
-                Console.WriteLine($"Title: {note.Title}\nUrl: {note.Title}");
+                Console.WriteLine($"Title: {note.Title}\nContent: {note.Content}");
                 Console.WriteLine("-----------------------");
             }
         }
