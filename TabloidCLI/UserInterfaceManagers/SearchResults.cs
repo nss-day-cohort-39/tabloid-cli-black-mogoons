@@ -30,7 +30,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
             foreach (T result in _results)
             {
-                Console.WriteLine(" " + result);
+                Console.WriteLine(result);
             }
 
             Console.WriteLine();
@@ -40,7 +40,7 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             foreach (T result in _results)
             {
-                Console.WriteLine(" " + result);
+                Console.WriteLine(result);
             }
 
             Console.WriteLine();
